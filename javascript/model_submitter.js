@@ -31,6 +31,7 @@ modelSubmitter.onclick = function(e) {
   text_data['symbol'] = document.querySelector('#symbol-locator').value;
   text_data['params'] = document.querySelector('#params-locator').value;
   text_data['dst'] = document.querySelector('#COMMON_MODEL_DIR').value;
-  text_data['host'] = document.querySelector('#host-locator').value;
+  text_data['host_addr'] = document.querySelector('#host-addr-locator').value;
+  text_data['host_port'] = document.querySelector('#host-port-locator').value;
   modelSubmitSocket.send(JSON.stringify(text_data));
 };

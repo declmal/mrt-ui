@@ -7,8 +7,7 @@ from channels.generic.websocket import WebsocketConsumer
 
 from mrt.V3.utils import merge_cfg, get_cfg_defaults
 from mrt.V3.execute import run
-from rpc.service import mrt_execute, mrt_submit
-from rpc.utils import stringify_cfg
+from mrt_ui.rpc.client import mrt_execute, mrt_submit
 from .protocol import type_cast
 
 
@@ -36,8 +35,10 @@ class MRTExecuteConsumer(WebsocketConsumer):
                 sub_json_data[attr] = data
             json_data[stage] = sub_json_data
         yaml_file_str = yaml.dump(json_data)
-        host_addr = json_from_js['host']
-        for message in mrt_execute(yaml_file_str, host_addr=host_addr):
+        host_addr = json_from_js['host_addr']
+        host_port = json_from_js['host_port']
+        host = "{}:{}".format(host_addr, host_port)
+        for message in mrt_execute(yaml_file_str, host_addr=host):
             self.send(text_data=json.dumps({'message': message}))
         self.send(
             text_data=json.dumps({'activate': None}))
@@ -53,14 +54,15 @@ class ModelSubmitConsumer(WebsocketConsumer):
     def receive(self, text_data):
         json_from_js = json.loads(text_data)
         json_data = {}
-        host_addr = json_from_js['host']
+        host_addr = json_from_js['host_addr']
+        host_port = json_from_js['host_port']
+        host = "{}:{}".format(host_addr, host_port)
         src_sym_file = json_from_js['symbol']
         src_prm_file = json_from_js['params']
         dst_model_dir = json_from_js['dst']
         cnt = 0
         for message in mrt_submit(
-            src_sym_file, src_prm_file, dst_model_dir,
-            host_addr=host_addr):
+            src_sym_file, src_prm_file, dst_model_dir, host_addr=host):
             cnt += 1
             dct = {'message': message}
             if cnt == 1:

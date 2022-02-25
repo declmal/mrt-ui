@@ -39,7 +39,8 @@ ConfigWrapperSocket.onmessage = function(e) {
   dict["COMMON"]["PASS_NAME"] = pass_name;
   let text_data = new Object();
   text_data['yaml'] = dict;
-  text_data['host'] = document.querySelector('#host-locator').value;
+  text_data['host_addr'] = document.querySelector('#host-addr-locator').value;
+  text_data['host_port'] = document.querySelector('#host-port-locator').value;
   mrtExecuteSocket.send(JSON.stringify(text_data));
 };
 

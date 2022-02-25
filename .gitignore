@@ -5,3 +5,4 @@ mrt_rpc_service_pb2.py
 mrt_rpc_service_pb2_grpc.py
 service_pb2.py
 service_pb2_grpc.py
+staticfiles
