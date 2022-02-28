@@ -1,8 +1,10 @@
 # Introduction to mrt-ui
 
-Welcome to the introduction of mrt UI package.
+MRT User Interface (MRT-UI) serves as an alternative to the command line operation of mrt quantization tools, which supports remote model submitting, quantization and uploading (TODO).  Comprehensive parameter tuning interfaces, logging console and intermediate visualization tools (TODO) are enabled for easier usage of MRT. 
 
-This project uses [public-key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography) to [authenticate](https://en.wikipedia.org/wiki/Authentication) the remote computer and allow it to authenticate the user, if necessary.
+MRT-UI depends on [Django](https://www.djangoproject.com/), which implements the frontend web service. Both direct access (TODO) and [gRPC-python](https://grpc.github.io/grpc/python/grpc.html#runtime-protobuf-parsing) are utilized for the realization of remote processes. The architecture of this project can be shown as follows:
+
+![](/Users/ycmstker/mrt-ui/static/mrt_ui-arch.png)
 
 ## Prerequisites Installation
 
@@ -18,7 +20,7 @@ This step is required in both server side and client side. Clone the project to 
 git clone https://github.com/declmal/mrt-ui.git /path/to/mrt-ui
 ```
 
-Then, some environment varaibles need to be installed by the following command.
+ Both web and rpc module of mrt-ui is based on the mrt module in the project [cvm-runtime](), so we need to install this package as mentioned in [mrt installation guide](https://cvm-runtime.readthedocs.io/en/latest/cvm/install.html#python-installation). Then, some environment varaibles need to be installed by the following command.
 
 ```bash
 cd /path/to/mrt-ui
@@ -84,9 +86,5 @@ MRT-UI has provided a web-browser based user-interface for quick test and visual
 make web-server
 ```
 
-Then, we can enter the following url into a web browser and start using the web interface for supported services.
-
-```http
-http://127.0.0.1:8000/test
-```
+Afterwards, we can enter [http://127.0.0.1:8000/test](http://127.0.0.1:8000/test) into a web browser and start using the web interface for supported services.
 
