@@ -4,7 +4,7 @@ MRT User Interface (MRT-UI) serves as an alternative to the command line operati
 
 MRT-UI depends on [Django](https://www.djangoproject.com/), which implements the frontend web service. Both direct access (TODO) and [gRPC-python](https://grpc.github.io/grpc/python/grpc.html#runtime-protobuf-parsing) are utilized for the realization of remote processes. The architecture of this project can be shown as follows:
 
-![](/Users/ycmstker/mrt-ui/static/mrt_ui-arch.png)
+![](static/mrt_ui-arch.png)
 
 ## Prerequisites Installation
 
