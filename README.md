@@ -41,13 +41,15 @@ source ~/.bash_profile
 
 ## RPC Server Configuration
 
-### Launch RPC server on your remote host
+### Protocol Generation
 
 Firstly, since mrt_rpc is based on [grpc-python](https://grpc.io/docs/languages/python/quickstart/) whose parameter packing protocol is inherently realized by [protobuf](https://developers.google.com/protocol-buffers), the intermediate generated python code that corresponding to [proto files](), the following command should be executed before the launch of RPC server.   
 
 ```bash
 make proto
 ```
+
+### Launch RPC server on your remote host
 
 The rpc module applies the client-server mode, thus the RPC server should be started before any remote procedured is called. To launch the mrt_rpc server, in the root dir of mrt-ui, execute the following command:
 
@@ -80,11 +82,19 @@ python tests/test_execute.py \
 
 ## Web Server Configuration
 
-MRT-UI has provided a web-browser based user-interface for quick test and visualization of model quantization. The web server can be launched by:
+### Launch web server
+
+MRT-UI has provided a web-browser based user-interface for quick test and visualization of model quantization. Since the web server has module that relies on grpc api, the protocol code must be generated beforehand, the process of which is elaborated in [Protocol Generation](#Protocol Generation).
+
+Then, the web service can be launched by:
 
 ```bash
 make web-server
 ```
+
+*Note*: If you launch the web browser locally and want to make use of the services on a remote machine, you need lauch the rpc server on that remote machine, see [Launch RPC server on your remote host](#Launch RPC server on your remote host) for reference.
+
+### Client side in web browser
 
 Afterwards, we can enter [http://127.0.0.1:8000/test](http://127.0.0.1:8000/test) into a web browser and start using the web interface for supported services.
 

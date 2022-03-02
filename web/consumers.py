@@ -84,6 +84,21 @@ class YAMLInitConsumer(WebsocketConsumer):
         self.send(text_data=json.dumps(cfg))
 
 
+class SubmissionInitConsumer(WebsocketConsumer):
+    def connect(self):
+        self.accept()
+
+    def disconnect(self, close_code):
+        pass
+
+    def receive(self, text_data):
+        data_dict = {
+            "symbol-locator": path.expanduser("~/mrt_model/alexnet.json"),
+            "params-locator": path.expanduser("~/mrt_model/alexnet.params"),
+        }
+        self.send(text_data=json.dumps(data_dict))
+
+
 class YAMLUpdateConsumer(WebsocketConsumer):
     def connect(self):
         self.accept()

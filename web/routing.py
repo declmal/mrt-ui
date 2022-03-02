@@ -10,6 +10,9 @@ websocket_urlpatterns = [
         r'ws/web/yaml/init/(?P<room_name>\w+)/$',
         consumers.YAMLInitConsumer.as_asgi()),
     re_path(
+        r'ws/web/submit/init/(?P<room_name>\w+)/$',
+        consumers.SubmissionInitConsumer.as_asgi()),
+    re_path(
         r'ws/web/yaml/update/(?P<room_name>\w+)/$',
         consumers.YAMLUpdateConsumer.as_asgi()),
     re_path(
