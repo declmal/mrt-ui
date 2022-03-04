@@ -60,14 +60,24 @@ class ModelSubmitConsumer(WebsocketConsumer):
         src_sym_file = json_from_js['symbol']
         src_prm_file = json_from_js['params']
         dst_model_dir = json_from_js['dst']
+
+        message = "local symbol file: {} and local params file: {}".format(
+            src_sym_file, src_prm_file) + \
+            "has been submitted to remote dir: {}".format(dst_model_dir) + \
+            "host_addr: {}, host_port: {}".format(host_addr, host_port)
+
+        dct = {'message': message, 'inc': 1}
+        self.send(text_data=json.dumps(dct))
+
         cnt = 0
         for message in mrt_submit(
             src_sym_file, src_prm_file, dst_model_dir, host_addr=host):
             cnt += 1
             dct = {'message': message}
             if cnt == 1:
-                dct['first'] = 1
+                dct['inc'] = 1
             self.send(text_data=json.dumps(dct))
+
         self.send(
             text_data=json.dumps({'activate': None}))
 
@@ -93,8 +103,9 @@ class SubmissionInitConsumer(WebsocketConsumer):
 
     def receive(self, text_data):
         data_dict = {
-            "symbol-locator": path.expanduser("~/mrt_model/alexnet.json"),
-            "params-locator": path.expanduser("~/mrt_model/alexnet.params"),
+            "local-model-dir-locator": path.expanduser("~/mrt_model"),
+            "model-name-locator": "alexnet",
+            "remote-model-dir-locator": "/tmp/mrt_model",
         }
         self.send(text_data=json.dumps(data_dict))
 

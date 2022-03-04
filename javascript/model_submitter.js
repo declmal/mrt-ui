@@ -12,7 +12,7 @@ modelSubmitSocket.onmessage = function(e) {
     modelSubmitter.disabled = false;
   }
   if ('message' in data) {
-    if ('first' in data) {
+    if ('inc' in data) {
       update_console(data.message);
     } else {
       update_console_v2(data.message);
@@ -28,9 +28,12 @@ modelSubmitter.onclick = function(e) {
   mrtExecutor.disabled = true;
   modelSubmitter.disabled = true;
   let text_data = new Object();
-  text_data['symbol'] = document.querySelector('#symbol-locator').value;
-  text_data['params'] = document.querySelector('#params-locator').value;
-  text_data['dst'] = document.querySelector('#COMMON_MODEL_DIR').value;
+  model_prefix = path.join(
+    document.querySelector('#local-model-dir-locator').value,
+    document.querySelector('#model-name-locator').value)
+  text_data['symbol'] = model_prefix + '.json'
+  text_data['params'] = model_prefix + '.params'
+  text_data['dst'] = document.querySelector('#remote-model-dir-locator').value;
   text_data['host_addr'] = document.querySelector('#host-addr-locator').value;
   text_data['host_port'] = document.querySelector('#host-port-locator').value;
   modelSubmitSocket.send(JSON.stringify(text_data));

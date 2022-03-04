@@ -7,32 +7,36 @@
     <title>Chat Room</title>
 </head>
 <body>
-    <em>Host Address</em><input id="host-addr-locator" type="text" size="50"><br>
-    <em>Host Port</em><input id="host-port-locator" type="text" size="10"><br>
-
-    <br>
-
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-
-    <br>
-
     <div class="MRT Execution">
-      <select id="mrt-stage-selector">
+      <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+      <em>Stage</em><select id="mrt-stage-selector">
         <option>all</option>
         <option>prepare</option>
         <option>calibrate</option>
         <option>quantize</option>
         <option>evaluate</option>
         <option>compile</option>
-      </select>
-      <input id="mrt-executor" type="button" value="Execute MRT"><br>
+      </select><br>
+      <input id="mrt-executor" type="button" value="Execute MRT">
+    </div>
+
+    <br>
+
+    <div class="Host Selection">
+      <em>Connection Type</em><select id="host-selection">
+        <option>remote</option>
+        <option>local</option>
+      </select><br>
+      <em>Host Address</em><input id="host-addr-locator" type="text" size="50"><br>
+      <em>Host Port</em><input id="host-port-locator" type="text" size="10">
     </div>
 
     <br>
 
     <div class="Model Submission">
-      <em>Local Symbol File Path</em><input id="symbol-locator" type="text" size="100"><br>
-      <em>Local Params File Path</em><input id="params-locator" type="text" size="100"><br>
+      <em>Local Model Dir</em><input id="local-model-dir-locator" type="text" size="100"><br>
+      <em>Model Name</em><input id="model-name-locator" type="text" size="100"><br>
+      <em>Remote Model Dir</em><input id="remote-model-dir-locator" type="text" size="100"><br>
       <input id="model-submitter" type="button" value="Submit Model"><br>
     </div>
 
@@ -134,12 +138,13 @@
     </div>
 
     {{ room_name|json_script:"room-name" }}
-    <script type="module" defer src="{% static 'utils.js' %}"></script>
-    <script type="module" defer src="{% static 'init.js' %}"></script>
-    <script type="module" defer src="{% static 'yaml_clearer.js' %}"></script>
-    <script type="module" defer src="{% static 'mrt_executor.js' %}"></script>
-    <script type="module" defer src="{% static 'model_submitter.js' %}"></script>
-    <script type="module" defer src="{% static 'yaml_file_loader.js' %}"></script>
-    <script type="module" defer src="{% static 'model_submitter.js' %}"></script>
+    <script type="module" defer src="{% static 'utils.js' %}?version=1"></script>
+    <script type="module" defer src="{% static 'init.js' %}?version=1"></script>
+    <script type="module" defer src="{% static 'yaml_clearer.js' %}?version=1"></script>
+    <script type="module" defer src="{% static 'mrt_executor.js' %}?version=1"></script>
+    <script type="module" defer src="{% static 'model_submitter.js' %}?version=1"></script>
+    <script type="module" defer src="{% static 'yaml_file_loader.js' %}?version=1"></script>
+    <script type="module" defer src="{% static 'model_submitter.js' %}?version=1"></script>
+    <script type="module" defer src="{% static 'host_selector.js' %}?version=4"></script>
 </body>
 </html>
